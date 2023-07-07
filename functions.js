@@ -1,5 +1,8 @@
 const path = require ('path');
 const fs= require ('fs');
+const axios = require("axios");
+//const { url } = require('inspector');
+//const { match } = require('assert');
 
 
 function isAbsolute(route){
@@ -57,27 +60,31 @@ function getFilesInDirectory(directoryPath) {
 
 function readFileMd(fileMd){
     return new Promise((resolve, reject) => {
-        
-        fs.readFile(fileMd,(err,data)=>{
+      
+       const links = []; 
+        fs.readFile(fileMd, "utf8", (err,data)=>{
           if(err){
             reject("Error al leer el archivo")
 
           }else{
             //contiene links? extraelos...
-            const regex = /(https?:\/\/[^\s]+)/g;
-            const matches = data.match(regex);
+            const regex = /\[(.*)\]\((https?:\/\/[\w\d./?=#]+)\)/g;
+            const matches = data.matchAll(regex);
+            console.log("aqui",matches);
 
-              const links =[];
+              
 
               for (const match of matches) {
                 const texto = match[1];
                 const url = match[2];
                 links.push({ texto, url });
+                
               }
-                
+                console.log("esta es", links);
                 return links;
-                
+              
           } resolve (links);
+          console.log("Estos son los links:", links);
         })
     })
     
@@ -92,6 +99,8 @@ function readFileMd(fileMd){
 
 
 
+
+readFileMd("README.md");
 
 module.exports = {
   isAbsolute,

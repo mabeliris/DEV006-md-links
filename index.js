@@ -4,6 +4,8 @@ const {
   isValidPath,
   isFile,
   getFilesInDirectory,
+  readFileMd,
+
   
 } = require("./functions");
 //
@@ -55,6 +57,7 @@ function mdLinks (path,options){
             console.log("Error:no es archivo", error);
             reject(error); // Rechaza la promesa con el error obtenido
           });
+      //readFileMd()    
        
          
   });
