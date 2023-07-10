@@ -4,15 +4,14 @@ const {
   isValidPath,
   isFile,
   getFilesInDirectory,
-  readFileMd,
+  readFileMd,  
+  validateMd,
+} = require("./functions.js");
 
-  
-} = require("./functions");
-//
 const filePath = process.argv[2];
 
 
-function mdLinks (path,options){
+function mdLinks (path){
   return new Promise ((resolve,reject) =>{
     let absolutePath;
     const validateLinks=isAbsolute(path); //valida si la ruta es absoluta
@@ -43,34 +42,42 @@ function mdLinks (path,options){
               getFilesInDirectory(absolutePath)
               .then((filePaths)=>{
                 console.log("archivos disponibles");
-                console.log(filePaths)
-                resolve(filePaths); // Resuelve la promesa con el resultado obtenido
+                //console.log(filePaths)
+                resolve(filePaths); 
             })              
               .catch((error)=>{
                 console.log("Error:No tiene archivos de extensión .md", error);
-                reject(error); // Rechaza la promesa con el error obtenido
+                reject(error); 
 
               });
             };
           })
           .catch((error)=>{
             console.log("Error:no es archivo", error);
-            reject(error); // Rechaza la promesa con el error obtenido
+            reject(error); 
           });
-      //readFileMd()    
-       
+       readFileMd(absolutePath)
+       .then((links) => {
+         //console.log("funciona hasta readfilemd");
+         validateMd(links)
+           .then((validatedLinks) => {
+             console.log("Enlaces validados:", validatedLinks);             
+             resolve(validatedLinks);
+           })
+           .catch((error) => {
+             console.log("Error en la validación de enlaces:", error);
+             reject(error);
+           });
+       });
+         
          
   });
   
 }
 
 
-
 mdLinks(filePath)
-.then((res)=>console.log(res))
+.then((res)=>console.log(res, "identificar aqui ****"))
 .catch((err)=>console.log(err));
 
 
-/*module.exports = () => {
-  // ...
-};*/
