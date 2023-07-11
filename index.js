@@ -11,7 +11,7 @@ const {
 const filePath = process.argv[2];
 
 
-function mdLinks (path){
+function mdLinks (path, options){
   return new Promise ((resolve,reject) =>{
     let absolutePath;
     const validateLinks=isAbsolute(path); //valida si la ruta es absoluta
@@ -56,27 +56,37 @@ function mdLinks (path){
             console.log("Error:no es archivo", error);
             reject(error); 
           });
+       
        readFileMd(absolutePath)
-       .then((links) => {
-         //console.log("funciona hasta readfilemd");
-         validateMd(links)
-           .then((validatedLinks) => {
-             console.log("Enlaces validados:", validatedLinks);             
-             resolve(validatedLinks);
-           })
-           .catch((error) => {
-             console.log("Error en la validación de enlaces:", error);
-             reject(error);
-           });
-       });
+         .then((links) => {
+           if (options.validate) {
+             validateMd(links)
+               .then((validatedLinks) => {
+                 console.log("Enlaces validados:", validatedLinks);
+                 resolve(validatedLinks);
+               })
+               .catch((error) => {
+                 console.log("Error en la validación de enlaces:", error);
+                 reject(error);
+               });
+           } else {
+             console.log("Enlaces sin validar:", links);
+             resolve(links);
+           }
+         })
+         .catch((error) => {
+           console.log("Error al leer el archivo:", error);
+           reject(error);
+         });
          
          
   });
   
 }
 
-
-mdLinks(filePath)
+//console.log("funciona hasta readfilemd",links);
+        
+mdLinks(filePath, {validate:true})
 .then((res)=>console.log(res, "identificar aqui ****"))
 .catch((err)=>console.log(err));
 
