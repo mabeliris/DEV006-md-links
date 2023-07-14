@@ -41,8 +41,7 @@ function mdLinks (path, options){
               console.log("es directorio")
               getFilesInDirectory(absolutePath)
               .then((filePaths)=>{
-                console.log("archivos disponibles");
-                //console.log(filePaths)
+                console.log("archivos disponibles");                
                 resolve(filePaths); 
             })              
               .catch((error)=>{
@@ -84,10 +83,12 @@ function mdLinks (path, options){
   
 }
 
-//console.log("funciona hasta readfilemd",links);
+
         
 mdLinks(filePath, {validate:true})
 .then((res)=>console.log(res, "identificar aqui ****"))
 .catch((err)=>console.log(err));
 
-
+module.export = {
+  mdLinks,
+};

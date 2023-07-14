@@ -2,8 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
 
-//const { url } = require('inspector');
-//const { match } = require('assert');
+
 
 function isAbsolute(route) {
   return path.isAbsolute(route);
@@ -65,7 +64,7 @@ function readFileMd(fileMd) {
         //contiene links? extraelos...
         const regex = /\[(.*)\]\((https?:\/\/[\w\d./?=#]+)\)/g;
         const matches = data.matchAll(regex);
-        //console.log("aqui", matches);
+        
 
         for (const match of matches) {
           const texto = match[1];
@@ -73,7 +72,7 @@ function readFileMd(fileMd) {
           const path = relativeToAbsolute(process.argv[2]);
           links.push({ texto, href,path, });
         }
-        //console.log("esta es", links);
+        
         resolve(links);
       }
     });
@@ -107,8 +106,7 @@ function validateMd(links) {
 }
 
 
-//readFileMd("prueba.md")
-//.then(response =>console.log("respuesta de mi promesa",response))
+
 
 module.exports = {
   isAbsolute,
