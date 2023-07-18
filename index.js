@@ -58,7 +58,7 @@ function mdLinks (path, options){
        
        readFileMd(absolutePath)
          .then((links) => {
-           if (options.validate) {
+           if (options && options.validate) {
              validateMd(links)
                .then((validatedLinks) => {
                  console.log("Enlaces validados:", validatedLinks);
