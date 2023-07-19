@@ -11,6 +11,7 @@ const {
 const filePath = process.argv[2];
 
 
+
 function mdLinks (path, options){
   return new Promise ((resolve,reject) =>{
     let absolutePath;
@@ -24,60 +25,33 @@ function mdLinks (path, options){
 
     isValidPath (absolutePath)
          .then((isValid)=>{
-          console.log('la ruta es válida:', isValid); //valida si la ruta existe(es valida)
-          resolve(isValid);
+          if(!isValid){
+            reject(new Error("La ruta no es válida"));
+          }
+          return isFile(absolutePath);
          })
-         .catch((err)=>{
-          console.log ("la ruta no es válida",err);
-          reject(err);
-         });
-        
-        isFile(absolutePath)
-          .then((isFile)=>{
-            if(isFile){
-              console.log("es archivo")
-              resolve(isFile);
-            }else{
-              console.log("es directorio")
-              getFilesInDirectory(absolutePath)
-              .then((filePaths)=>{
-                console.log("archivos disponibles");                
-                resolve(filePaths); 
-            })              
-              .catch((error)=>{
-                console.log("Error:No tiene archivos de extensión .md", error);
-                reject(error); 
+         .then((isFile)=>{
+          if(!isFile){
+            console.log("Es directorio");
+            return getFilesInDirectory(absolutePath);
+          }
+           console.log("Es archivo");
+           return readFileMd(absolutePath);
+         })
+         .then((links)=>{
+          if (options && options.validate) {
+            return validateMd(links);
+          }
 
-              });
-            };
-          })
-          .catch((error)=>{
-            console.log("Error:no es archivo", error);
-            reject(error); 
-          });
-       
-       readFileMd(absolutePath)
-         .then((links) => {
-           if (options && options.validate) {
-             validateMd(links)
-               .then((validatedLinks) => {
-                 console.log("Enlaces validados:", validatedLinks);
-                 resolve(validatedLinks);
-               })
-               .catch((error) => {
-                 console.log("Error en la validación de enlaces:", error);
-                 reject(error);
-               });
-           } else {
-             console.log("Enlaces sin validar:", links);
-             resolve(links);
-           }
+          return links;  
+
          })
-         .catch((error) => {
-           console.log("Error al leer el archivo:", error);
+         .then((result)=>{
+          resolve(result);
+         })
+         .catch((error)=>{
            reject(error);
-         });
-         
+         });        
          
   });
   
@@ -85,10 +59,18 @@ function mdLinks (path, options){
 
 
         
-mdLinks(filePath, {validate:true})
-.then((res)=>console.log(res, "identificar aqui ****"))
-.catch((err)=>console.log(err));
 
-module.export = {
+const result = mdLinks(filePath, { validate: false });
+result
+  .then((res) => {
+    console.log("identificar aqui ****",res );
+    return res;
+  })
+  .catch((err) => {
+    //console.error(err);
+    return err;
+  });
+
+module.exports = {
   mdLinks,
 };
