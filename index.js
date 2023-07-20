@@ -23,34 +23,34 @@ function mdLinks (path, options){
       
     }
 
-    isValidPath (absolutePath)
+    isValidPath (absolutePath) //la ruta es valida
          .then((isValid)=>{
           if(!isValid){
             reject(new Error("La ruta no es válida"));
           }
-          return isFile(absolutePath);
+          return isFile(absolutePath); //es archivo
          })
          .then((isFile)=>{
-          if(!isFile){
+          if(!isFile){   //es archivo o directorio?
             console.log("Es directorio");
-            return getFilesInDirectory(absolutePath);
+            return getFilesInDirectory(absolutePath);// obtiene los archivos del directorio
           }
            console.log("Es archivo");
-           return readFileMd(absolutePath);
+           return readFileMd(absolutePath);//busca archivos md
          })
          .then((links)=>{
           if (options && options.validate) {
-            return validateMd(links);
+            return validateMd(links);//retorna enlaces validados
           }
 
           return links;  
 
          })
          .then((result)=>{
-          resolve(result);
+          resolve(result);//aqui se resulve la promesa
          })
          .catch((error)=>{
-           reject(error);
+           reject(error);//aqui se rechaza la promesa 
          });        
          
   });
@@ -60,7 +60,7 @@ function mdLinks (path, options){
 
         
 
-const result = mdLinks(filePath, { validate: false });
+const result = mdLinks(filePath, { validate: true });
 result
   .then((res) => {
     console.log("identificar aqui ****",res );

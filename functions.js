@@ -46,9 +46,9 @@ function getFilesInDirectory(directoryPath) {
         reject(err); // Rechaza la promesa si hay un error al leer el directorio
       } else {
         const filePaths = files.map((file) => path.join(directoryPath, file));
-        files.filter((filePath) => path.extname(filePath) === ".md"); //obtener archivos con extension ".md"
+        const mdFiles=filePaths.filter((filePath) => path.extname(filePath) === ".md"); //obtener archivos con extension ".md"
 
-        resolve(filePaths);
+        resolve(mdFiles);
       }
     });
   });

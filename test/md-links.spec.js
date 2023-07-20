@@ -1,5 +1,8 @@
 const { mdLinks } = require('../index.js');
-const { isValidPath,isAbsolute }= require('../functions.js')
+const { isValidPath,isAbsolute, getFilesInDirectory }= require('../functions.js')
+
+const filePath ="./prueba.md"; /*"C:Users\\mabelle\\DEV006-md-links\\prueba.md"*/
+const options = { validate: true };
 
 describe("isAbsolute",()=>{
   it("is function",()=>{
@@ -13,9 +16,20 @@ describe("IsValidPath", () => {
   });
 });
 
+describe("getFilesInDirectory",()=>{
+  it("deberia retornar los archivos con extensión md",()=>{
+    const directoryPath = "./prueba.md";
+    getFilesInDirectory(directoryPath)
+       .then((result)=>{
+        expect(result).toEqual(filePath);
+        
 
-const filePath = "./prueba.md";/*"C:Users\\mabelle\\DEV006-md-links\\prueba.md"*/;
-const options = { validate: true };
+       })
+    
+  })
+});
+
+
 
 describe("mdLinks", () => {
   it("deberia retornar una proomesa que se resuelve con un array de objetos", () => {
