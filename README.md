@@ -28,6 +28,7 @@ la información que se quiere compartir.
 El modulo mdLinks es una API que lee y analiza archivos Markdown y detecta links que se encuentren en este, entregando distintas caracteristicas de estos, como el texto que acompaña el link y si estos links estan dañados o estan buenos, ademas de la ruta del link.
 
 ## 3. Diagrama de flujo
+[Link a diagrama](https://www.figma.com/file/Z7AZ24DjKNOQBp3axNHtRK/Untitled?type=whiteboard&node-id=0-1&t=7cUk0wlC3QSCPgDi-0)
 ![](./diagrama.jpeg)
 
 
