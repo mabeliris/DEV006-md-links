@@ -40,14 +40,14 @@ Los valores de retorno de cada link contiene las siguientes propiedades
 Con `validate:false` :
 
 * `href`: URL encontrada.
-* `text`: Texto que aparecía dentro del link (`<a>`).
-* `file`: Ruta del archivo donde se encontró el link.
+* `texto`: Texto que aparecía dentro del link (`<a>`).
+* `path`: Ruta del archivo donde se encontró el link.
 
 Con `validate:true` :
 
 * `href`: URL encontrada.
 * `text`: Texto que aparecía dentro del link (`<a>`).
-* `file`: Ruta del archivo donde se encontró el link.
+* `path`: Ruta del archivo donde se encontró el link.
 * `status`: Código de respuesta HTTP.
-* `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
+* `statusText`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
 
