@@ -25,7 +25,10 @@ la información que se quiere compartir.
 
 ## 2. Resumen del proyecto
 
-El modulo mdLinks es una API que lee y analiza archivos Markdown y detecta links que se encuentren en este, entregando distintas caracteristicas de estos, como el texto que acompaña el link y si estos links estan dañados o estan buenos, ademas de la ruta del link.
+mdLinks es una herramienta de línea de comandos (CLI) desarrollada en Node.js con el objetivo de analizar archivos Markdown para extraer y verificar enlaces. Las funcionalidades principales de mdLinks incluyen:
+- Extraer el texto de cada enlace: Identifica y obtiene el texto que acompaña a cada enlace en el archivo Markdown.
+- Proporcionar la ruta del enlace: Localiza y muestra la URL de cada enlace encontrado.
+- Verificar el estado del enlace: Comprueba si los enlaces están rotos o funcionales, proporcionando información sobre su estado.
 
 ## 3. Diagrama de flujo
 [Link a diagrama](https://www.figma.com/file/Z7AZ24DjKNOQBp3axNHtRK/Untitled?type=whiteboard&node-id=0-1&t=7cUk0wlC3QSCPgDi-0)
